@@ -1,0 +1,18 @@
+热修复
+
+如何生成补丁包：
+1 在 to-be-fixed 目录下创建跟项目相同的包名 com.chenchen.hotfix
+2 把 要修复的类拷贝过来，并且修改完善。
+3 在命令行中 cd 到to-be-fixed目录下：cd /Users/jessie/workspace/demo1/demo-hotfix/HotFix/to-be-fixed
+4 通过 javac 编译代码成 .class文件（javac --release 11 com.chenchen.hotfix/ToBeFixed.java） 生成 ToBeFixed.class 文件
+5 通过 d8或dx 生成 .dex 文件   d8地址：sdk目录/build-tools/32.0.0/d8 如： (/Users/jessie/Library/Android/sdk/build-tools/32.0.0/d8)
+  命令：/Users/jessie/Library/Android/sdk/build-tools/32.0.0/d8 --dex --output ./ com.chenchen.hotfix/ToBeFixed.class
+  会在 to-be-fixed 目录下生成 classes.dex
+
+运行时注入补丁包：HotFixUtil
+
+推送补丁包到手机：
+进入补丁包根目录：cd /Users/jessie/workspace/demo1/demo-hotfix/HotFix/to-be-fixed
+发送补丁包：adb push fixed.dex /sdcard/
+重新运行app生效
+
